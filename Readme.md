@@ -90,19 +90,20 @@ $transaction->Device("hash-device-id")->setIpAddress("127.0.0.1");
 // Processa a Transação
 $response = $getnet->Authorize($transaction);
 
-// Resultado da transação
+// Resultado da transação - Consultar tabela abaixo
 $response->getStatus();
 ```
 
 #### CONFIRMA PAGAMENTO (CAPTURA)
 ```php
 $capture = $getnet->AuthorizeConfirm("PAYMENT_ID");
+// Resultado da transação - Consultar tabela abaixo
 $capture->getStatus();
 ```
 
 
 ### Status de Retorno
-|Statis|Descrição|
+|Status|Descrição|
 | ------- | --------- |
 |PENDING|Registrada|
 |CANCELED|Desfeita ou Cancelada|
