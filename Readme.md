@@ -13,7 +13,7 @@ $ composer require brunopazz/getnet-sdk
 #### Exemplo Autorização com cartão de crédito MasterCard R$10,00 em 2x 
 
 ```php
-// Autenticação da API
+// Autenticação da API (client_id, client_secret, env)
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
 
 // Inicia uma transação
@@ -96,10 +96,12 @@ $response->getStatus();
 
 #### CONFIRMA PAGAMENTO (CAPTURA)
 ```php
-// Autenticação da API
+// Autenticação da API (client_id, client_secret, env)
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
 
+// Processa a confirmação da autorização
 $capture = $getnet->AuthorizeConfirm("PAYMENT_ID");
+
 // Resultado da transação - Consultar tabela abaixo
 $capture->getStatus();
 ```
@@ -117,7 +119,7 @@ $capture->getStatus();
 
 ### Cartões para testes
 
-|  Cartão |  Resultado esperado |
+|  N. Cartão |  Resultado esperado |
 | ------------ | ------------ |
 |  5155901222280001 (Master)	  | Transação Autorizada  |
 | 5155901222270002   (Master)|  Transação Não Autorizada |
@@ -127,7 +129,7 @@ $capture->getStatus();
 
 
 ### Ambientes disponíveis
-|PARAMENTRO|NOME|
+|PARÂMETRO|DETALHE|
 | ------- | --------- |
 |SANDBOX|Sandbox - para desenvolvedores |
 |HOMOLOG|Homologação - para lojistas e devs |
