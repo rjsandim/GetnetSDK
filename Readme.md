@@ -79,6 +79,12 @@ $response = $getnet->Authorize($transaction);
 print $response->getStatus();
 ```
 
+#### CONFIRMA PAGAMENTO (CAPTURA)
+```php
+$capture = $getnet->AuthorizeConfirm("PAYMENT_ID");
+$capture->getStatus();
+```
+
 ### Cartões para testes
 
 |  Cartão |  Resultado esperado |
@@ -93,5 +99,4 @@ print $response->getStatus();
 
 ##### TODO
 Em desenvolvimento:
-- Captura
 - Cancelamento
