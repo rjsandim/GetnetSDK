@@ -10,16 +10,15 @@ Todos os passos e processos referentes à integração com o sistema de captura 
 
 `` $ composer require brunopazz/getnet-sdk
 
-#### Exemplo Autorização com cartão de crédito MasterCard 2x 
+#### Exemplo Autorização com cartão de crédito MasterCard R$10,00 em 2x 
 
 ```php
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "STAGING");
 $transaction = new Transaction();
 $transaction->setSellerId("1955a180-2fa5-4b65-8790-2ba4182a94cb");
 $transaction->setCurrency("BRL");
-$transaction->setAmount("100");
-
-$card = new Token("5155901222270002", "customer_21081826", $getnet);
+$transaction->setAmount("1000");
+$card = new Token("5155901222280001", "customer_21081826", $getnet);
 $transaction->Credit("")
     ->setAuthenticated(false)
     ->setDynamicMcc("1799")
@@ -32,7 +31,7 @@ $transaction->Credit("")
     ->Card($card)
     ->setBrand("MasterCard")
     ->setExpirationMonth("12")
-    ->setExpirationYear("12")
+    ->setExpirationYear("20")
     ->setCardholderName("Bruno Paz")
     ->setSecurityCode("123");
 
@@ -77,7 +76,7 @@ $transaction->Device("hash-device-id")->setIpAddress("127.0.0.1");
 
 $response = $getnet->Authorize($transaction);
 
-$response->getStatus();
+print $response->getStatus();
 ```
 
 ### Cartões para testes
@@ -96,5 +95,3 @@ $response->getStatus();
 Em desenvolvimento:
 - Captura
 - Cancelamento
-- Consulta
-- Boleto
