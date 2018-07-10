@@ -8,7 +8,6 @@
 
 namespace Getnet\API;
 
-
 /**
  * Class Request
  * @package Getnet\API
@@ -30,8 +29,10 @@ class Request
     {
 
         if ($credentials->getEnv() == "PRODUCTION")
-            $this->baseUrl = 'https://api.userede.com.br/erede/v1/';
-        elseif ($credentials->getEnv() == "STAGING")
+            $this->baseUrl = 'https://api-sandbox.getnet.com.br';
+        elseif ($credentials->getEnv() == "HOMOLOG")
+            $this->baseUrl = 'https://api-homologacao.getnet.com.br';
+        elseif ($credentials->getEnv() == "SANDBOX")
             $this->baseUrl = 'https://api-sandbox.getnet.com.br';
 
         if ($credentials->debug == true)
@@ -41,9 +42,11 @@ class Request
             return $this->auth($credentials);
     }
 
+
     /**
-     * @return $this
-     * @throws \Exception
+     * @param Getnet $credentials
+     * @return Getnet
+     * @throws Exception
      */
     function auth(Getnet $credentials)
     {
@@ -99,10 +102,17 @@ class Request
         curl_setopt($curl, CURLOPT_ENCODING, "");
         curl_setopt_array($curl, $defaultCurlOptions);
 
+        if ($credentials->debug === true) {
+            $info = curl_getinfo($curl);
+            print_r($info);
+            curl_setopt($curl, CURLOPT_VERBOSE, 1);
+        }
+
         $response = curl_exec($curl);
 
         if ($credentials->debug === true) {
-            curl_setopt($curl, CURLOPT_VERBOSE, 1);
+            $info = curl_getinfo($curl);
+            print_r($info);
             print_r($response);
         }
         if (curl_getinfo($curl, CURLINFO_HTTP_CODE) >= 400) {
@@ -139,23 +149,25 @@ class Request
         return $this->baseUrl;
     }
 
+
     /**
-     * Send get request to api
-     *
-     * @param string $url_path
-     * @return string $response
+     * @param Getnet $credentials
+     * @param $url_path
+     * @return mixed
+     * @throws Exception
      */
     function get(Getnet $credentials, $url_path)
     {
         return $this->send($credentials, $url_path, 'GET');
     }
 
+
     /**
-     * Send post request to api
-     *
-     * @param string $url_path
-     * @param string(json formatted) $params
-     * @return string $response
+     * @param Getnet $credentials
+     * @param $url_path
+     * @param $params
+     * @return mixed
+     * @throws Exception
      */
     function post(Getnet $credentials, $url_path, $params)
     {
@@ -164,11 +176,11 @@ class Request
 
 
     /**
-     * Send put request to api
-     *
-     * @param string $url_path
-     * @param mixed $params
-     * @return string
+     * @param Getnet $credentials
+     * @param $url_path
+     * @param $params
+     * @return mixed
+     * @throws Exception
      */
     function put(Getnet $credentials, $url_path, $params)
     {

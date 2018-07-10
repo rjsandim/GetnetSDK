@@ -130,6 +130,27 @@ class Getnet
         try {
             $request = new Request($this);
             $response = $request->post($this, "/v1/payments/credit", $transaction->toJSON());
+
+            if ($this->debug)
+                print $transaction->toJSON();
+        } catch (\Exception $e) {
+
+            $error = new BaseResponse();
+            $error->mapperJson(json_decode($e->getMessage(), true));
+
+            return $error;
+        }
+        $authresponse = new AuthorizeResponse();
+        $authresponse->mapperJson($response);
+
+        return $authresponse;
+    }
+
+    public function AuthorizeConfirm($payment_id)
+    {
+        try {
+            $request = new Request($this);
+            $response = $request->post($this, "/v1/payments/credit/" . $payment_id . "/confirm", "");
         } catch (\Exception $e) {
 
             $error = new BaseResponse();
