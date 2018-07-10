@@ -13,7 +13,7 @@ namespace Getnet\API;
  * Class BaseResponse
  * @package Getnet\API
  */
-class BaseResponse
+class BaseResponse implements \JsonSerializable
 {
     /**
      * @var
@@ -65,8 +65,16 @@ class BaseResponse
     public $responseJSON;
 
     /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+    /**
      * @return mixed
      */
+
     public function getErrorMessage()
     {
         return $this->error_message;
@@ -265,6 +273,7 @@ class BaseResponse
     {
 
         array_walk_recursive($json, function ($value, $key) {
+
             if (property_exists($this, $key)) {
                 $this->$key = $value;
             }

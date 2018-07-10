@@ -22,7 +22,6 @@ class Request
      */
     private $baseUrl = '';
 
-
     /**
      * Request constructor.
      * @param Getnet $credentials
@@ -61,7 +60,6 @@ class Request
 
         return $credentials;
     }
-
 
     /**
      * @param Getnet $credentials
@@ -131,6 +129,14 @@ class Request
         }
 
         return $this->baseUrl . $url_path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
     }
 
     /**

@@ -18,7 +18,7 @@ namespace Getnet\API;
  */
 class Getnet
 {
-    public $debug = true;
+    public $debug = false;
     /**
      * @var Request
      */
@@ -137,11 +137,29 @@ class Getnet
 
             return $error;
         }
-        print_r($response);
         $authresponse = new AuthorizeResponse();
         $authresponse->mapperJson($response);
 
         return $authresponse;
+    }
+
+    public function Boleto(Transaction $transaction)
+    {
+        try {
+            $request = new Request($this);
+            $response = $request->post($this, "/v1/payments/boleto", $transaction->toJSON());
+        } catch (\Exception $e) {
+
+            $error = new BaseResponse();
+            $error->mapperJson(json_decode($e->getMessage(), true));
+
+            return $error;
+        }
+        $boletoresponse = new BoletoRespose();
+        $boletoresponse->mapperJson($response);
+        $boletoresponse->setBaseUrl($request->getBaseUrl());
+
+        return $boletoresponse;
     }
 }
 

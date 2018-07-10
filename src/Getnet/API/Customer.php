@@ -21,9 +21,9 @@ class Customer implements \JsonSerializable
      * Customer constructor.
      * @param $email
      */
-    public function __construct($email)
+    public function __construct($name)
     {
-        $this->email = $email;
+        $this->name = $name;
     }
 
     /**
