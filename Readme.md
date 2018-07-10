@@ -14,7 +14,7 @@ $ composer require brunopazz/getnet-sdk
 
 ```php
 // Autenticação da API
-$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "STAGING");
+$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
 
 // Inicia uma transação
 $transaction = new Transaction();
@@ -96,6 +96,9 @@ $response->getStatus();
 
 #### CONFIRMA PAGAMENTO (CAPTURA)
 ```php
+// Autenticação da API
+$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
+
 $capture = $getnet->AuthorizeConfirm("PAYMENT_ID");
 // Resultado da transação - Consultar tabela abaixo
 $capture->getStatus();
@@ -123,6 +126,12 @@ $capture->getStatus();
 | 4012001037141112 (Visa) |Transação Autorizada|
 
 
+### Ambientes disponíveis
+|PARAMENTRO|NOME|
+| ------- | --------- |
+|SANDBOX|Sandbox - para desenvolvedores |
+|HOMOLOG|Homologação - para lojistas e devs |
+|PRODUCTION|Produção - somente lojistas |
 
 ##### TODO
 Em desenvolvimento:
