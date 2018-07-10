@@ -6,6 +6,10 @@ Todos os passos e processos referentes à integração com o sistema de captura 
 ** Documentação oficial
 ** https://api.getnet.com.br/v1/doc/api
 
+#### Composer
+
+`` $ composer require brunopazz/getnet-sdk
+
 #### Exemplo Autorização
 
 ```php
