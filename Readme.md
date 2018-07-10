@@ -10,7 +10,7 @@ Todos os passos e processos referentes à integração com o sistema de captura 
 
 `` $ composer require brunopazz/getnet-sdk
 
-#### Exemplo Autorização
+#### Exemplo Autorização com cartão de crédito MasterCard 2x 
 
 ```php
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "STAGING");
