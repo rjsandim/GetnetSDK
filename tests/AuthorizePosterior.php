@@ -8,21 +8,21 @@ namespace Getnet\API;
  */
 include "../vendor/autoload.php";
 
-$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "STAGING");
+$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
 $transaction = new Transaction();
 $transaction->setSellerId("1955a180-2fa5-4b65-8790-2ba4182a94cb");
 $transaction->setCurrency("BRL");
 $transaction->setAmount("10000");
 
-$card = new Token("5155901222280001", "customer_21081826", $getnet);
+$card = new Token("5155901222280002", "customer_21081826", $getnet);
 $transaction->Credit("")
     ->setAuthenticated(false)
-    ->setDynamicMcc("1799")
+    ->setDynamicMcc(1799)
     ->setSoftDescriptor("LOJA*TESTE*COMPRA-123")
     ->setDelayed(true)
     ->setPreAuthorization(true)
     ->setNumberInstallments("2")
-    ->setSaveCardData(false)
+    ->setSaveCardData(true)
     ->setTransactionType("FULL")
     ->Card($card)
     ->setBrand("MasterCard")
@@ -72,4 +72,7 @@ $transaction->Device("hash-device-id")->setIpAddress("127.0.0.1");
 
 $response = $getnet->Authorize($transaction);
 
-print_r($response->getStatus() . "\n");
+
+### CONFIRMA PAGAMENTO (CAPTURA)
+$capture = $getnet->AuthorizeConfirm($response->getPaymentId());
+print_r($capture->getStatus());

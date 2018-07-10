@@ -8,7 +8,7 @@ namespace Getnet\API;
  */
 include "../vendor/autoload.php";
 
-$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "STAGING");
+$getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
 $transaction = new Transaction();
 $transaction->setSellerId("1955a180-2fa5-4b65-8790-2ba4182a94cb");
 $transaction->setCurrency("BRL");
