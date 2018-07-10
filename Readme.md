@@ -13,14 +13,21 @@ $ composer require brunopazz/getnet-sdk
 #### Exemplo Autorização com cartão de crédito MasterCard R$10,00 em 2x 
 
 ```php
+// Autenticação da API
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "STAGING");
 
+// Inicia uma transação
 $transaction = new Transaction();
+
+// Dados do pedido - Transação
 $transaction->setSellerId("1955a180-2fa5-4b65-8790-2ba4182a94cb");
 $transaction->setCurrency("BRL");
 $transaction->setAmount("1000");
 
+// Gera token do cartão - Obrigatório
 $card = new Token("5155901222280001", "customer_21081826", $getnet);
+
+// Dados do método de pagamento do comprador
 $transaction->Credit("")
     ->setAuthenticated(false)
     ->setDynamicMcc("1799")
@@ -36,7 +43,7 @@ $transaction->Credit("")
         ->setExpirationYear("20")
         ->setCardholderName("Bruno Paz")
         ->setSecurityCode("123");
-
+// Dados pessoais do comprador
 $transaction->Customer("customer_21081826")
     ->setDocumentType("CPF")
     ->setEmail("customer@email.com.br")
@@ -54,7 +61,7 @@ $transaction->Customer("customer_21081826")
         ->setPostalCode("90230060")
         ->setState("SP")
         ->setStreet("Av. Brasil");
-
+// Dados de entrega do pedido
 $transaction->Shippings("")
     ->setEmail("customer@email.com.br")
     ->setFirstName("João")
@@ -69,16 +76,22 @@ $transaction->Shippings("")
         ->setPostalCode("90230060")
         ->setState("RS")
         ->setStreet("Av. Brasil");
-
+// Detalhes do Pedido
 $transaction->Order("123456")
     ->setProductType("service")
     ->setSalesTax("0");
+$transaction->setSellerId("1955a180-2fa5-4b65-8790-2ba4182a94cb");
+$transaction->setCurrency("BRL");
+$transaction->setAmount("1000");
 
+// FingerPrint - Antifraude
 $transaction->Device("hash-device-id")->setIpAddress("127.0.0.1");
 
+// Processa a Transação
 $response = $getnet->Authorize($transaction);
 
-print $response->getStatus();
+// Resultado da transação
+$response->getStatus();
 ```
 
 #### CONFIRMA PAGAMENTO (CAPTURA)
@@ -86,6 +99,17 @@ print $response->getStatus();
 $capture = $getnet->AuthorizeConfirm("PAYMENT_ID");
 $capture->getStatus();
 ```
+
+
+### Status de Retorno
+|Statis|Descrição|
+| ------- | --------- |
+|PENDING|Registrada|
+|CANCELED|Desfeita ou Cancelada|
+|APPROVED|Aprovada|
+|DENIED|Negada|
+|AUTHORIZED|Autorizada pelo emissor|
+|CONFIRMED|Confirmada ou Capturada|
 
 ### Cartões para testes
 
