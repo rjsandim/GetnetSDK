@@ -3,13 +3,13 @@ E-commerce
 
 Todos os passos e processos referentes à integração com o sistema de captura e autorização de transações financeiras da Getnet via as funcionalidades da API.
 
-** Documentação oficial
-** https://api.getnet.com.br/v1/doc/api
+ Documentação oficial
+* https://api.getnet.com.br/v1/doc/api
 
 #### Composer
-
-`` $ composer require brunopazz/getnet-sdk
-
+```
+$ composer require brunopazz/getnet-sdk
+```
 #### Exemplo Autorização com cartão de crédito MasterCard R$10,00 em 2x 
 
 ```php
