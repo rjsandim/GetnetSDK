@@ -157,7 +157,7 @@ $response = $getnet->Boleto($transaction);
 $response->getStatus();
 ```
 
-### Possiveis status de resposta de uma transação
+### Possíveis status de resposta de uma transação
 |Status|Descrição|
 | ------- | --------- |
 |PENDING|Registrada ou Aguardando ação|
