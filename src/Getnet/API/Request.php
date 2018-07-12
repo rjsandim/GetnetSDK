@@ -108,18 +108,23 @@ class Request
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
         }
 
-        $response = curl_exec($curl);
-
+        try {
+            $response = curl_exec($curl);
+        } catch (Exception $e) {
+            print "ERROR";
+            EXIT;
+        }
         if ($credentials->debug === true) {
             $info = curl_getinfo($curl);
             print_r($info);
-            print_r($response);
+            print_r(json_encode(json_decode($response), JSON_PRETTY_PRINT));
         }
         if (curl_getinfo($curl, CURLINFO_HTTP_CODE) >= 400) {
             throw new Exception($response, 100);
         }
         if (!$response) {
-            throw new Exception(curl_error($curl));
+            print "ERROR";
+            EXIT;
         }
         curl_close($curl);
 

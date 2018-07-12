@@ -42,3 +42,4 @@ $transaction->Order("123456")
 $response = $getnet->Boleto($transaction);
 
 print_r($response->getStatus() . "\n");
+

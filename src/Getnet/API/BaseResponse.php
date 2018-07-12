@@ -64,6 +64,7 @@ class BaseResponse implements \JsonSerializable
      */
     public $responseJSON;
 
+    public $status_label;
     /**
      * @return array
      */
@@ -71,6 +72,7 @@ class BaseResponse implements \JsonSerializable
     {
         return get_object_vars($this);
     }
+
     /**
      * @return mixed
      */
@@ -234,10 +236,24 @@ class BaseResponse implements \JsonSerializable
      */
     public function getStatus()
     {
-        if ($this->status_code == 402) {
-            $this->status = "DENIED";
-        }
 
+        if ($this->status_code == 201) {
+            $this->status = "AUTHORIZED";
+        } elseif ($this->status_code == 202) {
+            $this->status = "AUTHORIZED";
+        } elseif ($this->status_code == 402) {
+            $this->status = "DENIED";
+        } elseif ($this->status_code == 400) {
+            $this->status = "ERROR";
+        } elseif ($this->status_code == 402) {
+            $this->status = "ERROR";
+        } elseif ($this->status_code == 500) {
+            $this->status = "ERROR";
+        } elseif (isset($this->redirect_url)) {
+            $this->status = "PENDING";
+        } elseif (isset($this->status_label)) {
+            $this->status = $this->status_label;
+        }
         return $this->status;
     }
 

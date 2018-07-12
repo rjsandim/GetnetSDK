@@ -8,16 +8,15 @@ namespace Getnet\API;
      * Documentation https://api.getnet.com.br/v1/doc/api
      */
 
-    /**
-     * Class Getnet
-     * @package Getnet\API
-     */
 /**
  * Class Getnet
  * @package Getnet\API
  */
 class Getnet
 {
+    /**
+     * @var bool
+     */
     public $debug = false;
     /**
      * @var Request
@@ -128,9 +127,14 @@ class Getnet
     public function Authorize(Transaction $transaction)
     {
         try {
-            $request = new Request($this);
-            $response = $request->post($this, "/v1/payments/credit", $transaction->toJSON());
 
+            $request = new Request($this);
+
+            if (property_exists($transaction, "debit")) {
+                $response = $request->post($this, "/v1/payments/debit", $transaction->toJSON());
+            } elseif (property_exists($transaction, "credit")) {
+                $response = $request->post($this, "/v1/payments/credit", $transaction->toJSON());
+            }
             if ($this->debug)
                 print $transaction->toJSON();
         } catch (\Exception $e) {
@@ -146,6 +150,10 @@ class Getnet
         return $authresponse;
     }
 
+    /**
+     * @param $payment_id
+     * @return AuthorizeResponse|BaseResponse
+     */
     public function AuthorizeConfirm($payment_id)
     {
         try {
@@ -164,11 +172,62 @@ class Getnet
         return $authresponse;
     }
 
+    public function AuthorizeConfirmDebit($payment_id, $payer_authentication_response)
+    {
+        try {
+            $payer_authentication_response = array("payer_authentication_response" => $payer_authentication_response);
+            $request = new Request($this);
+            $response = $request->post($this, "/v1/payments/debit/" . $payment_id . "/authenticated/finalize", json_encode($payer_authentication_response));
+        } catch (\Exception $e) {
+
+            $error = new BaseResponse();
+            $error->mapperJson(json_decode($e->getMessage(), true));
+
+            return $error;
+        }
+        $authresponse = new AuthorizeResponse();
+        $authresponse->mapperJson($response);
+
+        return $authresponse;
+    }
+
+    /**
+     * @param $payment_id
+     * @param $amount_val
+     * @return AuthorizeResponse|BaseResponse
+     */
+    public function AuthorizeCancel($payment_id, $amount_val)
+    {
+        $amount = array("amount" => $amount_val);
+
+        try {
+            $request = new Request($this);
+            $response = $request->post($this, "/v1/payments/credit/" . $payment_id . "/cancel", json_encode($amount));
+
+        } catch (\Exception $e) {
+
+            $error = new BaseResponse();
+            $error->mapperJson(json_decode($e->getMessage(), true));
+
+            return $error;
+        }
+        $authresponse = new AuthorizeResponse();
+        $authresponse->mapperJson($response);
+
+        return $authresponse;
+    }
+
+    /**
+     * @param Transaction $transaction
+     * @return BaseResponse|BoletoRespose
+     */
     public function Boleto(Transaction $transaction)
     {
         try {
             $request = new Request($this);
             $response = $request->post($this, "/v1/payments/boleto", $transaction->toJSON());
+            if ($this->debug)
+                print $transaction->toJSON();
         } catch (\Exception $e) {
 
             $error = new BaseResponse();
