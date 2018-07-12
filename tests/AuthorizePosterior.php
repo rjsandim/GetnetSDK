@@ -71,8 +71,12 @@ $transaction->Order("123456")
 $transaction->Device("hash-device-id")->setIpAddress("127.0.0.1");
 
 $response = $getnet->Authorize($transaction);
-
+print_r($response->getStatus() . "\n");
 
 ### CONFIRMA PAGAMENTO (CAPTURA)
 $capture = $getnet->AuthorizeConfirm($response->getPaymentId());
-print_r($capture->getStatus());
+print_r($capture->getStatus() . "\n");
+
+### CANCELA PAGAMENTO (CANCEL)
+$cancel = $getnet->AuthorizeCancel($response->getPaymentId(), $response->getAmount());
+print_r($cancel->getStatus() . "\n");

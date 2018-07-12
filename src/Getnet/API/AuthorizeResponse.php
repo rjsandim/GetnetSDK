@@ -56,6 +56,58 @@ class AuthorizeResponse extends BaseResponse
      */
     protected $acquirer_transaction_id;
 
+    protected $redirect_url;
+    protected $issuer_payment_id;
+    protected $payer_authentication_request;
+
+    /**
+     * @return mixed
+     */
+    public function getRedirectUrl()
+    {
+        return $this->redirect_url;
+    }
+
+    /**
+     * @param mixed $redirect_url
+     */
+    public function setRedirectUrl($redirect_url)
+    {
+        $this->redirect_url = $redirect_url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIssuerPaymentId()
+    {
+        return $this->issuer_payment_id;
+    }
+
+    /**
+     * @param mixed $issuer_payment_id
+     */
+    public function setIssuerPaymentId($issuer_payment_id)
+    {
+        $this->issuer_payment_id = $issuer_payment_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayerAuthenticationRequest()
+    {
+        return $this->payer_authentication_request;
+    }
+
+    /**
+     * @param mixed $payer_authentication_request
+     */
+    public function setPayerAuthenticationRequest($payer_authentication_request)
+    {
+        $this->payer_authentication_request = $payer_authentication_request;
+    }
+
     /**
      * @return mixed
      */

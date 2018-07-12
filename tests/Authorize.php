@@ -19,7 +19,7 @@ $transaction->Credit("")
     ->setDynamicMcc("1799")
     ->setSoftDescriptor("LOJA*TESTE*COMPRA-123")
     ->setDelayed(false)
-    ->setPreAuthorization(true)
+    ->setPreAuthorization(false)
     ->setNumberInstallments("2")
     ->setSaveCardData(false)
     ->setTransactionType("FULL")
@@ -72,3 +72,7 @@ $transaction->Device("hash-device-id")->setIpAddress("127.0.0.1");
 $response = $getnet->Authorize($transaction);
 
 print_r($response->getStatus() . "\n");
+
+### CANCELA PAGAMENTO (CANCEL)
+$capture = $getnet->AuthorizeCancel($response->getPaymentId(), $response->getAmount());
+print_r($capture->getStatus() . "\n");
