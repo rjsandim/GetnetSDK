@@ -106,7 +106,7 @@ $capture = $getnet->AuthorizeConfirm("PAYMENT_ID");
 $capture->getStatus();
 ```
 
-#### CANCELA PAGAMENTO (Crédito e débito)
+#### CANCELA PAGAMENTO (CRÉDITO e DÉBITO)
 ```php
 // Autenticação da API (client_id, client_secret, env)
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
@@ -115,7 +115,7 @@ $cancel = $getnet->AuthorizeCancel("[PAYMENT_ID]", [AMOUNT]);
 print_r($cancel->getStatus() . "\n");
 ```
 
-### BOLETO BANCÁRIO
+### BOLETO BANCÁRIO (SANTANDER
 
 ```php
 $getnet = new Getnet("c076e924-a3fe-492d-a41f-1f8de48fb4b1", "bc097a2f-28e0-43ce-be92-d846253ba748", "SANDBOX");
@@ -157,7 +157,7 @@ $response->getStatus();
 ### Possiveis status de resposta de uma transação
 |Status|Descrição|
 | ------- | --------- |
-|PENDING|Registrada|
+|PENDING|Registrada ou Aguardando ação|
 |CANCELED|Desfeita ou Cancelada|
 |APPROVED|Aprovada|
 |DENIED|Negada|
@@ -176,14 +176,14 @@ $response->getStatus();
 
 
 ### Ambientes disponíveis
-|PARÂMETRO|DETALHE|
+|Paramentro|Detalhe|
 | ------- | --------- |
 |SANDBOX|Sandbox - para desenvolvedores |
 |HOMOLOG|Homologação - para lojistas e devs |
 |PRODUCTION|Produção - somente lojistas |
 
 ### Meios de Pagamento
-|Meios|Descrição|
+|Modalidade|Descrição|
 | ------- | --------- |
 |CREDIT|Pagamento com cartão de crédito|
 |DEBIT|Pagamento com cartão de débito|
@@ -193,7 +193,7 @@ $response->getStatus();
 ### Métodos de Pagamento
 |Método|Descrição|
 | ------- | --------- |
-|AUTHORIZE|Autoriza uma transação com Pre-Auth ou não|
+|Authorize|Autoriza uma transação com Pre-Auth ou não|
 |AuthorizeConfirm|Confirma uma autorização de crédito|
 |AuthorizeConfirmDebit|Confirma uma autorização de débito|
 |AuthorizeCancel|Cancela a transação|
