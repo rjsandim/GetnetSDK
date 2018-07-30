@@ -21,9 +21,20 @@ class Customer implements \JsonSerializable
      * Customer constructor.
      * @param $email
      */
-    public function __construct($name)
+    public function __construct($id)
     {
-        $this->name = $name;
+        $this->setCustomerId($id);
+    }
+
+    /**
+     * @param mixed $customer_id
+     * @return Customer
+     */
+    public function setCustomerId($customer_id)
+    {
+        $this->customer_id = $customer_id;
+
+        return $this;
     }
 
     /**
@@ -31,7 +42,13 @@ class Customer implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return get_object_vars($this);
+
+        $vars = get_object_vars ($this);
+        $vars_clear = array_filter ($vars, function ( $value ) {
+            return null !== $value;
+        });
+
+        return $vars_clear;
     }
 
     /**
@@ -112,17 +129,6 @@ class Customer implements \JsonSerializable
     public function getCustomerId()
     {
         return $this->customer_id;
-    }
-
-    /**
-     * @param mixed $customer_id
-     * @return Customer
-     */
-    public function setCustomerId($customer_id)
-    {
-        $this->customer_id = $customer_id;
-
-        return $this;
     }
 
     /**

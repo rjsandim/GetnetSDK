@@ -13,7 +13,7 @@ $transaction->setSellerId("1955a180-2fa5-4b65-8790-2ba4182a94cb");
 $transaction->setCurrency("BRL");
 $transaction->setAmount("1000");
 
-$card = new Token("5155901222280001", "customer_21081826", $getnet);
+$card = new Token("5155901222280001", "customer_210818263", $getnet);
 $transaction->Credit("")
     ->setAuthenticated(false)
     ->setDynamicMcc("1799")
@@ -30,7 +30,7 @@ $transaction->Credit("")
     ->setCardholderName("Bruno Paz")
     ->setSecurityCode("123");
 
-$transaction->Customer("customer_21081826")
+$transaction->Customer("customer_210818263")
     ->setDocumentType("CPF")
     ->setEmail("customer@email.com.br")
     ->setFirstName("Bruno")

@@ -103,6 +103,10 @@ class Request
         curl_setopt_array($curl, $defaultCurlOptions);
 
         if ($credentials->debug === true) {
+
+            print "\n\nJSON REQUEST\n";
+            print_r($json);
+
             $info = curl_getinfo($curl);
             print_r($info);
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
@@ -112,7 +116,6 @@ class Request
             $response = curl_exec($curl);
         } catch (Exception $e) {
             print "ERROR";
-            EXIT;
         }
         if ($credentials->debug === true) {
             $info = curl_getinfo($curl);

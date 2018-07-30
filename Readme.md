@@ -132,7 +132,7 @@ $transaction->Boleto("000001946598")
     ->setProvider("santander")
     ->setInstructions("Não receber após o vencimento");
 
-$transaction->Customer("")
+$transaction->Customer()
     ->setDocumentType("CPF")
     ->setFirstName("Bruno")
     ->setName("Bruno Paz")

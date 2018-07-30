@@ -81,7 +81,7 @@ class Transaction
      * @param $id
      * @return Customer
      */
-    public function Customer($id)
+    public function Customer($id = null)
     {
         $customer = new Customer($id);
         $this->setCustomer($customer);
@@ -96,6 +96,7 @@ class Transaction
     public function Shippings($id)
     {
         $customer = new Customer($id);
+        $customer->setCustomerId(null);
         $this->shippings[] = $customer;
 
         return $customer;
