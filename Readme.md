@@ -7,8 +7,8 @@ Todos os passos e processos referentes à integração com o sistema de captura 
 * https://api.getnet.com.br/v1/doc/api
 
 #### Composer
-```
-$ composer require brunopazz/getnet-sdk
+```bash
+composer require brunopazz/getnet-sdk
 ```
 #### Exemplo Autorização com cartão de crédito MasterCard R$10,00 em 2x 
 
